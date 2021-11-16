@@ -205,11 +205,11 @@ namespace GaussNewtonAlgorithm
             return (true, LU, P, S);
         }
 
-        public (bool wassuccessful, DMatrix inverse) Invert(double tol = 0.0001)
+        public (bool wasSuccessful, DMatrix inverse) Invert(double tol = 0.0001)
         {
-            (bool succes, DMatrix lu, int[] p, int S) = this.LUPDecompose(tol);
+            (bool success, DMatrix lu, int[] p, int S) = this.LUPDecompose(tol);
 
-            if (!succes)
+            if (!success)
             {
                 return (false, null);
             }
