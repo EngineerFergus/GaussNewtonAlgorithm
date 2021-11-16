@@ -268,8 +268,8 @@ namespace GaussNewtonAlgorithm
         {
             if(this.Rows != B.Rows || this.Cols != B.Cols)
             {
-                throw new Exception("Cannot perform element-wise multiplication of matrices with different shape." +
-                    $"A = {this.Rows} x {this.Cols}, B = {B.Rows} x {B.Cols}");
+                throw new Exception("Cannot perform element-wise multiplication of matrices with different dimensions." +
+                    $"Tried mutliplying A ({this.Rows} rows x {this.Cols} cols) with B ({B.Rows} x {B.Cols})");
             }
 
             DMatrix C = new DMatrix(Rows, Cols);
