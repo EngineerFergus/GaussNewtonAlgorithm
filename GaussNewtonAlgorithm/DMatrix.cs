@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace GaussNewtonAlgorithm
 {
+    /// <summary>
+    /// Class for linear algebra operations of matrices. Uses type double for all data within a matrix.
+    /// LUP decomposition is used for inverting a matrix and for calculating it's determinant.
+    /// </summary>
     public class DMatrix
     {
         private readonly double[,] data;
