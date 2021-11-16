@@ -264,7 +264,7 @@ namespace GaussNewtonAlgorithm
             return (true, S % 2 == 0 ? det : -det);
         }
 
-        public DMatrix ElementWiseMultiply(DMatrix B)
+        public DMatrix MultiplyElementWise(DMatrix B)
         {
             if(this.Rows != B.Rows || this.Cols != B.Cols)
             {

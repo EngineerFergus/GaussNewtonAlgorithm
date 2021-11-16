@@ -55,7 +55,6 @@ namespace GaussNewtonAlgorithm
 
             Console.WriteLine($"LUPMat: {lupTest}");
             Console.WriteLine($"LU: {LU}");
-            Console.WriteLine($"P: {P}");
             Console.WriteLine($"S: {S}");
             Console.WriteLine($"Det: {det:F2}");
             Console.WriteLine($"Invert: {inv}");
