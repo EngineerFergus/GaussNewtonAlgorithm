@@ -285,6 +285,36 @@ namespace GaussNewtonAlgorithm
             return C;
         }
 
+        public double Sum()
+        {
+            double sum = 0.0;
+
+            for(int i = 0; i < Rows; i++)
+            {
+                for(int j = 0; j < Cols; j++)
+                {
+                    sum += this[i, j];
+                }
+            }
+
+            return sum;
+        }
+
+        public double AbsSum()
+        {
+            double sum = 0.0;
+
+            for(int i = 0; i < Rows; i++)
+            {
+                for(int j = 0; j < Cols; j++)
+                {
+                    sum += Math.Abs(this[i, j]);
+                }
+            }
+
+            return sum;
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
