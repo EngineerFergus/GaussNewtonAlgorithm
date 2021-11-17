@@ -13,7 +13,7 @@ namespace GaussNewtonAlgorithm
             if(coefficients.Length != 3)
             {
                 throw new Exception($"Exeption running SigmoidFunction." +
-                    $" Expected three coefficient values and received {coefficients.Length}");
+                    $" Expected 3 coefficient values and received {coefficients.Length}");
             }
 
             double A = coefficients[0], B = coefficients[1], C = coefficients[2];
