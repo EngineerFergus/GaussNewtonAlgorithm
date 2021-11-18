@@ -8,27 +8,45 @@ namespace GaussNewtonAlgorithm
 {
     public class GaussNewtonSolver
     {
-        private double rmseTolerance;
-        private double iterationTolerance;
-        private int maxIterations;
+        private readonly double rmseTolerance;
+        private readonly double iterationTolerance;
+        private readonly int maxIterations;
 
-        public Func<double, double[], double> FitFunction { get; private set; }
-        public double[] Coefficients { get; private set; }
-        public Data[] Data { get; private set; }
+        public Func<double, DMatrix, double> FitFunction { get; private set; }
 
-        public GaussNewtonSolver(Func<double, double[], double> fitFunction, Data[] data, double[] initGuesses,
+        public GaussNewtonSolver(Func<double, DMatrix, double> fitFunction, int maxIterations = 1000,
             double rmseTol = 10e-9, double iterTol = 10e-16)
         {
             rmseTolerance = rmseTol;
             iterationTolerance = iterTol;
             FitFunction = fitFunction;
-            Data = data;
-            Coefficients = initGuesses;
+            this.maxIterations = maxIterations;
         }
 
-        public void Fit()
+        public double[] Fit(Data[] data, double[] initGuesses)
         {
-            // TODO run algo to fit the function
+            // TODO Implement Algorithm
+
+            DMatrix beta = DMatrix.ColVector(initGuesses);
+
+            throw new NotImplementedException();
+        }
+
+        private double[] CalcResiduals(Data[] data, DMatrix beta)
+        {
+            if(FitFunction == null)
+            {
+                throw new Exception("Exception in CalcResiduals: FitFunction was null.");
+            }
+
+            double[] ri = new double[data.Length];
+
+            for(int i = 0; i < data.Length; i++)
+            {
+                ri[i] = data[i].Y - FitFunction.Invoke(data[i].X, beta);
+            }
+
+            return ri;
         }
     }
 }

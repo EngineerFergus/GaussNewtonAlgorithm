@@ -357,6 +357,32 @@ namespace GaussNewtonAlgorithm
             return id;
         }
 
+        public static DMatrix RowVector(double[] data)
+        {
+            int N = data.Length;
+            DMatrix rowVector = new DMatrix(1, N);
+
+            for(int i = 0; i < N; i++)
+            {
+                rowVector[0, i] = data[i];
+            }
+
+            return rowVector;
+        }
+
+        public static DMatrix ColVector(double[] data)
+        {
+            int N = data.Length;
+            DMatrix colVector = new DMatrix(N, 1);
+
+            for(int i = 0; i < N; i++)
+            {
+                colVector[i, 0] = data[i];
+            }
+
+            return colVector;
+        }
+
         public static DMatrix operator -(DMatrix A)
         {
             DMatrix neg = new DMatrix(A.Rows, A.Cols);
