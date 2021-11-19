@@ -10,6 +10,7 @@ namespace GaussNewtonAlgorithm
     {
         private readonly double rmseTolerance;
         private readonly double iterationTolerance;
+        private readonly double step = 10e-6;
         private readonly int maxIterations;
 
         public Func<double, DMatrix, double> FitFunction { get; private set; }
@@ -32,6 +33,31 @@ namespace GaussNewtonAlgorithm
             throw new NotImplementedException();
         }
 
+        private DMatrix CalcJacobian(Data[] data, DMatrix beta)
+        {
+            DMatrix Jacobian = new DMatrix(data.Length, beta.Rows);
+            DMatrix betaStep = new DMatrix(beta);
+
+            for(int i = 0; i < beta.Rows; i++)
+            {
+                for(int j = 0; j < beta.Rows; j++)
+                {
+                    betaStep[j, 0] = beta[j, 0];
+                    if(i == j)
+                    {
+                        betaStep[j, 0] += step;
+                    }
+                }
+
+                for(int j = 0; j < data.Length; j++)
+                {
+                    Jacobian[j, i] = CalcGradient(beta, betaStep, data[j].X);
+                }
+            }
+
+            return Jacobian;
+        }
+
         private double[] CalcResiduals(Data[] data, DMatrix beta)
         {
             if(FitFunction == null)
@@ -47,6 +73,13 @@ namespace GaussNewtonAlgorithm
             }
 
             return ri;
+        }
+
+        private double CalcGradient(DMatrix beta, DMatrix betaStep, double x)
+        {
+            double yZero = FitFunction.Invoke(x, beta);
+            double y = FitFunction.Invoke(x, betaStep);
+            return (y - yZero) / step;
         }
     }
 }

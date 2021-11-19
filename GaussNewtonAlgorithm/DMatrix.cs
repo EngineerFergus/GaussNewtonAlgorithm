@@ -21,7 +21,7 @@ namespace GaussNewtonAlgorithm
             {
                 return data[i, j];
             }
-            private set
+            set
             {
                 data[i, j] = value;
             }
@@ -313,6 +313,42 @@ namespace GaussNewtonAlgorithm
             }
 
             return sum;
+        }
+
+        public DMatrix GetRow(int r)
+        {
+            if(r >= Rows)
+            {
+                throw new Exception("Exception in GetRow: Index of row must be less than total Rows." +
+                    $"Attempted to obtain row {r} with only {Rows} rows within matrix.");
+            }
+
+            DMatrix row = new DMatrix(1, Cols);
+
+            for(int i = 0; i < Cols; i++)
+            {
+                row[0, i] = this[r, i];
+            }
+
+            return row;
+        }
+
+        public DMatrix GetCol(int c)
+        {
+            if(c >= Cols)
+            {
+                throw new Exception("Exception in GetCol: Index or column must be less than total Cols." +
+                    $"Attempted to obtai row {c} with only {Cols} columns within matrix.")
+            }
+
+            DMatrix col = new DMatrix(Rows, 1);
+
+            for(int i = 0; i < Rows; i++)
+            {
+                col[i, 0] = this[i, c];
+            }
+
+            return col;
         }
 
         public override string ToString()
