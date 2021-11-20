@@ -338,7 +338,7 @@ namespace GaussNewtonAlgorithm
             if(c >= Cols)
             {
                 throw new Exception("Exception in GetCol: Index or column must be less than total Cols." +
-                    $"Attempted to obtai row {c} with only {Cols} columns within matrix.")
+                    $"Attempted to obtain row {c} with only {Cols} columns within matrix.");
             }
 
             DMatrix col = new DMatrix(Rows, 1);

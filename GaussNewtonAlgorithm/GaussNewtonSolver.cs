@@ -24,13 +24,45 @@ namespace GaussNewtonAlgorithm
             this.maxIterations = maxIterations;
         }
 
-        public double[] Fit(Data[] data, double[] initGuesses)
+        public DMatrix Fit(Data[] data, double[] initGuesses)
         {
             // TODO Implement Algorithm
 
             DMatrix beta = DMatrix.ColVector(initGuesses);
+            double[] residuals = CalcResiduals(data, beta);
+            double rmse = Utils.CalcRMS(residuals);
+            bool wasSuccessful = true;
+            Console.WriteLine($"Starting RMSE: {rmse:F2}");
 
-            throw new NotImplementedException();
+            for(int i = 0; i < maxIterations; i++)
+            {
+                DMatrix J = CalcJacobian(data, beta);
+                DMatrix JT = J.Transpose();
+                DMatrix bigJ = JT * J;
+                (wasSuccessful, bigJ) = bigJ.Invert();
+
+                if (!wasSuccessful)
+                {
+                    Console.WriteLine("Error in GaussNewtonSolver.Fit: Matrix inversion was not successful.");
+                    return beta;
+                }
+
+                bigJ = bigJ * JT;
+
+                beta = beta + bigJ * beta;
+                residuals = CalcResiduals(data, beta);
+                rmse = Utils.CalcRMS(residuals);
+                Console.WriteLine($"Iteration {i} of {maxIterations}... RMSE: {rmse:F2}");
+
+                if(rmse < rmseTolerance)
+                {
+                    Console.WriteLine($"RMSE tolerance achieved on iteration {i} of {maxIterations}.");
+                    break;
+                }
+
+            }
+
+            return beta;
         }
 
         private DMatrix CalcJacobian(Data[] data, DMatrix beta)
