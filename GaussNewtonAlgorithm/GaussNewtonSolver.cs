@@ -57,7 +57,15 @@ namespace GaussNewtonAlgorithm
                     rB[j, 0] = residuals[j];
                 }
 
+                double temp = rmse;
                 rmse = Utils.CalcRMS(residuals);
+
+                if(Math.Abs(temp - rmse) < iterationTolerance)
+                {
+                    Console.WriteLine($"Convergence to a solution met, change in RMSE smaller than tolerance.");
+                    break;
+                }
+
                 Console.WriteLine($"Iteration {i + 1} of {maxIterations}... RMSE: {rmse:F2}");
                 Console.Write($"Beta estimation: {beta}");
 

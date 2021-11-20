@@ -9,9 +9,9 @@ namespace GaussNewtonAlgorithm
             Func<double, DMatrix, double> sigmoidFunc = Utils.SigmoidFunction;
             DMatrix trueBeta = DMatrix.ColVector(new double[] { 20, 1, 5 });
 
-            Data[] noisyData = Utils.GenerateData(sigmoidFunc, trueBeta, -3, 20, 40);
+            Data[] noisyData = Utils.GenerateNoisyData(sigmoidFunc, trueBeta, -3, 20, 0.15, 100);
 
-            GaussNewtonSolver solver = new GaussNewtonSolver(sigmoidFunc, 10);
+            GaussNewtonSolver solver = new GaussNewtonSolver(sigmoidFunc, 100);
 
             DMatrix beta = DMatrix.ColVector(new double[] { 17.0, 0.5, 4.0 });
 
