@@ -10,7 +10,7 @@ namespace GaussNewtonAlgorithm
     {
         private readonly double rmseTolerance;
         private readonly double iterationTolerance;
-        private readonly double step = 10e-6;
+        private readonly double step = 1e-3;
         private readonly int maxIterations;
 
         public Func<double, DMatrix, double> FitFunction { get; private set; }
@@ -24,17 +24,17 @@ namespace GaussNewtonAlgorithm
             this.maxIterations = maxIterations;
         }
 
-        public DMatrix Fit(Data[] data, double[] initGuesses)
+        public DMatrix Fit(Data[] data, DMatrix initGuesses)
         {
-            // TODO Implement Algorithm
-
-            DMatrix beta = DMatrix.ColVector(initGuesses);
+            DMatrix beta = new DMatrix(initGuesses);
             double[] residuals = CalcResiduals(data, beta);
+            DMatrix rB = DMatrix.ColVector(residuals);
             double rmse = Utils.CalcRMS(residuals);
             bool wasSuccessful = true;
             Console.WriteLine($"Starting RMSE: {rmse:F2}");
+            Console.WriteLine($"Starting Beta: {beta}");
 
-            for(int i = 0; i < maxIterations; i++)
+            for (int i = 0; i < maxIterations; i++)
             {
                 DMatrix J = CalcJacobian(data, beta);
                 DMatrix JT = J.Transpose();
@@ -47,19 +47,26 @@ namespace GaussNewtonAlgorithm
                     return beta;
                 }
 
-                bigJ = bigJ * JT;
+                bigJ *= JT;
 
-                beta = beta + bigJ * beta;
+                beta -= bigJ * rB;
                 residuals = CalcResiduals(data, beta);
-                rmse = Utils.CalcRMS(residuals);
-                Console.WriteLine($"Iteration {i} of {maxIterations}... RMSE: {rmse:F2}");
 
-                if(rmse < rmseTolerance)
+                for(int j = 0; j < residuals.Length; j++)
                 {
-                    Console.WriteLine($"RMSE tolerance achieved on iteration {i} of {maxIterations}.");
-                    break;
+                    rB[j, 0] = residuals[j];
                 }
 
+                rmse = Utils.CalcRMS(residuals);
+                Console.WriteLine($"Iteration {i + 1} of {maxIterations}... RMSE: {rmse:F2}");
+                Console.Write($"Beta estimation: {beta}");
+
+                if (rmse < rmseTolerance)
+                {
+                    Console.WriteLine($"RMSE tolerance achieved on iteration {i + 1} of {maxIterations}.");
+                    Console.Write($"Beta estimation: {beta}");
+                    break;
+                }
             }
 
             return beta;
@@ -111,7 +118,7 @@ namespace GaussNewtonAlgorithm
         {
             double yZero = FitFunction.Invoke(x, beta);
             double y = FitFunction.Invoke(x, betaStep);
-            return (y - yZero) / step;
+            return (yZero - y) / step;
         }
     }
 }

@@ -6,6 +6,25 @@ namespace GaussNewtonAlgorithm
     {
         static void Main(string[] args)
         {
+            Func<double, DMatrix, double> sigmoidFunc = Utils.SigmoidFunction;
+            DMatrix trueBeta = DMatrix.ColVector(new double[] { 20, 1, 5 });
+
+            Data[] noisyData = Utils.GenerateData(sigmoidFunc, trueBeta, -3, 20, 40);
+
+            GaussNewtonSolver solver = new GaussNewtonSolver(sigmoidFunc, 10);
+
+            DMatrix beta = DMatrix.ColVector(new double[] { 17.0, 0.5, 4.0 });
+
+            DMatrix betaHat = solver.Fit(noisyData, beta);
+
+            Console.WriteLine($"");
+            Console.WriteLine($"Beta used to make data: {trueBeta}");
+            Console.WriteLine($"BetaHat: {betaHat}");
+        }
+
+        public static void MatrixTests()
+        {
+            // old code for testing DMatrix class. Should be built out for true unit testing, if I wasn't lazy.
             DMatrix testMat = new DMatrix(5);
             Console.WriteLine($"{testMat}");
 
