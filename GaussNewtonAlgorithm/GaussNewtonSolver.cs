@@ -14,6 +14,7 @@ namespace GaussNewtonAlgorithm
         private readonly int maxIterations;
 
         public Func<double, DMatrix, double> FitFunction { get; private set; }
+        public StringBuilder TrainingInfo { get; private set; }
 
         public GaussNewtonSolver(Func<double, DMatrix, double> fitFunction, int maxIterations = 1000,
             double rmseTol = 10e-9, double iterTol = 10e-16)
@@ -22,6 +23,7 @@ namespace GaussNewtonAlgorithm
             iterationTolerance = iterTol;
             FitFunction = fitFunction;
             this.maxIterations = maxIterations;
+            TrainingInfo = new StringBuilder();
         }
 
         public DMatrix Fit(Data[] data, DMatrix initGuesses)
@@ -30,9 +32,8 @@ namespace GaussNewtonAlgorithm
             double[] residuals = CalcResiduals(data, beta);
             DMatrix rB = DMatrix.ColVector(residuals);
             double rmse = Utils.CalcRMS(residuals);
+            InitTrainingInfo(initGuesses, rmse);
             bool wasSuccessful = true;
-            Console.WriteLine($"Starting RMSE: {rmse:F2}");
-            Console.WriteLine($"Starting Beta: {beta}");
 
             for (int i = 0; i < maxIterations; i++)
             {
@@ -59,15 +60,13 @@ namespace GaussNewtonAlgorithm
 
                 double temp = rmse;
                 rmse = Utils.CalcRMS(residuals);
+                LogTraining(i, rmse, beta);
 
                 if(Math.Abs(temp - rmse) < iterationTolerance)
                 {
                     Console.WriteLine($"Convergence to a solution met, change in RMSE smaller than tolerance.");
                     break;
                 }
-
-                Console.WriteLine($"Iteration {i + 1} of {maxIterations}... RMSE: {rmse:F2}");
-                Console.Write($"Beta estimation: {beta}");
 
                 if (rmse < rmseTolerance)
                 {
@@ -127,6 +126,37 @@ namespace GaussNewtonAlgorithm
             double yZero = FitFunction.Invoke(x, beta);
             double y = FitFunction.Invoke(x, betaStep);
             return (yZero - y) / step;
+        }
+
+        private void InitTrainingInfo(DMatrix initGuesses, double rmse)
+        {
+            TrainingInfo = new StringBuilder();
+            StringBuilder line = new StringBuilder();
+            StringBuilder header = new StringBuilder();
+            header.Append("Iteration, RMSE, ");
+            line.Append($"0, {rmse:F4}, ");
+
+            for (int i = 0; i < initGuesses.Rows; i++)
+            {
+                header.Append($"Beta{i:D2}, ");
+                line.Append($"{initGuesses[i, 0]:F4}, ");
+            }
+
+            TrainingInfo.AppendLine(header.ToString());
+            TrainingInfo.AppendLine(line.ToString());
+        }
+
+        private void LogTraining(int iteration, double rmse, DMatrix coefficients)
+        {
+            StringBuilder line = new StringBuilder();
+            line.Append($"{iteration}, {rmse:F4}, ");
+
+            for(int i = 0; i < coefficients.Rows; i++)
+            {
+                line.Append($"{coefficients[i, 0]:F4}, ");
+            }
+
+            TrainingInfo.AppendLine(line.ToString());
         }
     }
 }

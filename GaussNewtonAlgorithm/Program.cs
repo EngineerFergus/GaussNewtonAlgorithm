@@ -13,9 +13,10 @@ namespace GaussNewtonAlgorithm
 
             GaussNewtonSolver solver = new GaussNewtonSolver(sigmoidFunc, 100);
 
-            DMatrix beta = DMatrix.ColVector(new double[] { 17.0, 0.5, 4.0 });
+            DMatrix beta = DMatrix.ColVector(new double[] { 10.0, 0.5, 4.0 });
 
             DMatrix betaHat = solver.Fit(noisyData, beta);
+            Console.WriteLine(solver.TrainingInfo.ToString());
 
             Console.WriteLine($"");
             Console.WriteLine($"Beta used to make data: {trueBeta}");
