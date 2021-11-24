@@ -6,3 +6,9 @@ Sources:
 - [Python Implementation](https://omyllymaki.medium.com/gauss-newton-algorithm-implementation-from-scratch-55ebe56aac2e)
 - [DMatrix Class](https://codereview.stackexchange.com/questions/230515/matrix-class-in-c)
 - [LU Decomposition](https://en.wikipedia.org/wiki/LU_decomposition)
+
+To test the algorithm's performance, I made a utility class for generating some idealized and noisy data. For training I used 100 data points generated using a sigmoidal function. Random noise was added to each x and y value to all the data points to better simulate data that would be gathered in actual applications. Below is the equation for the sigmoidal function:
+
+<p align="center">
+    f(x) = A / (1 + exp(-B * (x - C)))
+</p>
