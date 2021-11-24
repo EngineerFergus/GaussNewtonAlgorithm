@@ -7,8 +7,10 @@ Sources:
 - [DMatrix Class](https://codereview.stackexchange.com/questions/230515/matrix-class-in-c)
 - [LU Decomposition](https://en.wikipedia.org/wiki/LU_decomposition)
 
-To test the algorithm's performance, I made a utility class for generating some idealized and noisy data. For training I used 100 data points generated using a sigmoidal function. Random noise was added to each x and y value to all the data points to better simulate data that would be gathered in actual applications. Below is the equation for the sigmoidal function:
+To test the algorithm's performance, I decided I would model a sigmoidal function since I have seen use for it's application in my work. The equation I specifically used for the function is shown below:
 
 <p align="center">
     <img src="https://latex.codecogs.com/svg.latex?f(x)&space;=&space;\frac{A}{1&space;&plus;&space;e^{-B(x&space;-&space;C))})}" title="f(x) = \frac{A}{1 + e^{-B(x - C))})}" />
 </p>
+
+The goal was to estimate the coefficients A, B, and C given a set of data. The form of this sigmoid was used since each coefficient has a clear impact on the resulting shape of the "S" curve. "A" controls the peak or extreme value of the sigmoid, "B" controls how quickly the sigmoid approaches the extreme value, and "C" controls the halfway point between zero and A. All of these coefficients are easily translated to real world meaning depending on your application.
