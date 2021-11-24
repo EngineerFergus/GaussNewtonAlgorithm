@@ -7,7 +7,7 @@ Sources:
 - [DMatrix Class](https://codereview.stackexchange.com/questions/230515/matrix-class-in-c)
 - [LU Decomposition](https://en.wikipedia.org/wiki/LU_decomposition)
 
-To test the algorithm's performance, I decided I would model a sigmoidal function since I have seen use for it's application in my work. A minor goal for this project was to further explore this sigmoidal funciton. The equation I specifically used for the function is shown below:
+To test the algorithm's performance, I decided I would model a sigmoidal function since I have seen use for it's application in my work. A minor goal for this project was to further explore this sigmoidal funciton. The equation I specifically used is shown below:
 
 <p align="center">
     <img src="https://latex.codecogs.com/svg.latex?f(x)&space;=&space;\frac{A}{1&space;&plus;&space;e^{-B(x&space;-&space;C))})}" title="f(x) = \frac{A}{1 + e^{-B(x - C))})}" />
