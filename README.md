@@ -18,6 +18,6 @@ The goal was to estimate the coefficients A, B, and C given a set of data. The f
 For testing the performance of the algorithm, I made a few utility methods to generate random data to fit my models to. 100 data points were generated using an ideal sigmoid method following the function shown above. Random noise was added to all the x and y values for each data point to better simulate real world data. The following figures illustrate the performance of the algorithm.
 
 <p align="center">
-    
+    ![RMSE](GaussNewtonAlgorithm/rmseTrainingFig.png)
 </p>
     
