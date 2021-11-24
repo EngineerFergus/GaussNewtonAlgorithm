@@ -18,9 +18,15 @@ The goal was to estimate the coefficients A, B, and C given a set of data. The f
 For testing the performance of the algorithm, I made a few utility methods to generate random data to fit my models to. 100 data points were generated using an ideal sigmoid method following the function shown above. Random noise was added to all the x and y values for each data point to better simulate real world data. The following figures illustrate the performance of the algorithm.
 
 ![RMSE](GaussNewtonAlgorithm/rmseTrainingFig.png)
+Plot of root mean squared (RMSE) over each iteration of the algorithm.
 
 ![IterationZero](GaussNewtonAlgorithm/iterationZeroFig.png)
+Plot of the testing data and the initially guessed sigmoid before fitting.
 
 ![IterationOne](GaussNewtonAlgorithm/iterationOneFig.png)
+Plot of testing data and the fit sigmoid after a single iteration.
 
 ![IterationFinal](GaussNewtonAlgorithm/iterationFinalFig.png)
+Plot of the final sigmoid after 14 iterations.
+
+I was surprised at how quickly the algorithm converged, although this could be due to the initial guesses I fed the algorithm being heavily influenced by the fact that I knew how the testing data was generated. Overall, convergence was achieved within the first 20 iterations with RMSE values not changing significantly enough between iterations to warrant continuing the algorithm. Some final notes, this algorithm would likely be faster and more computationally stable if the partial derivatives for each coefficient were calculated analytically. However, I used this approach since it allows for any arbitrary function with an arbitrary number of coefficients. 
