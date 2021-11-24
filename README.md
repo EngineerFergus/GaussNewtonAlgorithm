@@ -20,6 +20,6 @@ For testing the performance of the algorithm, I made a few utility methods to ge
 <p align="center">
 </p>
 
-    ![RMSE](GaussNewtonAlgorithm/rmseTrainingFig.png)
+![RMSE](GaussNewtonAlgorithm/rmseTrainingFig.png)
 
     
