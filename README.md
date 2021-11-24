@@ -10,5 +10,5 @@ Sources:
 To test the algorithm's performance, I made a utility class for generating some idealized and noisy data. For training I used 100 data points generated using a sigmoidal function. Random noise was added to each x and y value to all the data points to better simulate data that would be gathered in actual applications. Below is the equation for the sigmoidal function:
 
 <p align="center">
-    f(x) = A / (1 + exp(-B * (x - C)))
+    <img src="https://latex.codecogs.com/svg.latex?f(x)&space;=&space;\frac{A}{1&space;&plus;&space;e^{-B(x&space;-&space;C))})}" title="f(x) = \frac{A}{1 + e^{-B(x - C))})}" />
 </p>
