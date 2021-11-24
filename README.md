@@ -19,7 +19,7 @@ For testing the performance of the algorithm, I made a few utility methods to ge
 
 ![RMSE](GaussNewtonAlgorithm/rmseTrainingFig.png)
 
-Plot of root mean squared (RMSE) over each iteration of the algorithm.
+Plot of root mean squared error (RMSE) over each iteration of the algorithm.
 
 ![IterationZero](GaussNewtonAlgorithm/iterationZeroFig.png)
 
